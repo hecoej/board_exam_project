@@ -22,14 +22,16 @@ public class BoardService {
 
         String projectPath = System.getProperty("user.dir") + "\\board\\board\\src\\main\\resources\\static\\files";
         //파일 경로와 식별자_이름을 저장
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + file.getOriginalFilename();
-        File saveFile = new File(projectPath, fileName);
+        if(file != null){
+            UUID uuid = UUID.randomUUID();
+            String fileName = uuid + "_" + file.getOriginalFilename();
+            File saveFile = new File(projectPath, fileName);
 
-        file.transferTo(saveFile);
+            file.transferTo(saveFile);
 
-        board.setFilename(fileName);
-        board.setFilepath("/files/" + fileName);
+            board.setFilename(fileName);
+            board.setFilepath("/files/" + fileName);
+        }
 
         boardRepository.save(board);
     }
